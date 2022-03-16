@@ -102,3 +102,42 @@ class Solution:
         
         
    
+
+
+    
+# Question: You are given the head of a linked list. Delete the middle node, 
+# and return the head of the modified linked list.
+# The middle node of a linked list of size n is the ⌊n / 2⌋th node from the 
+# start using 0-based indexing, where ⌊x⌋ denotes the largest integer less than or equal to x.
+# For n = 1, 2, 3, 4, and 5, the middle nodes are 0, 1, 1, 2, and 2, respectively.
+# Link: https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
+# My solution:
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head == None:
+            return None
+        node_list = []
+        curr_node = head
+        while curr_node != None:
+            node_list.append(curr_node)
+            curr_node = curr_node.next
+        node_list_len = len(node_list)
+        if node_list_len == 1:
+            return None
+        if node_list_len % 2 == True:
+            index = int(node_list_len / 2)
+            if node_list_len == 2:
+                node_list[index - 1].next = None
+            else:
+                node_list[index - 1].next = node_list[index + 1]
+            node_list[index].next = None
+        else:
+            index = int(floor(node_list_len / 2))
+            node_list[index - 1].next = node_list[index + 1]
+            node_list[index].next = None
+        return head
