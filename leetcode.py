@@ -58,3 +58,47 @@ class Solution:
             node_list[node_list_len - n - 1].next = node_list[node_list_len - n + 1]
             node_list[node_list_len - n].next = None
         return head
+
+    
+    
+# Question: You are given the head of a linked list, and an integer k.
+# Return the head of the linked list after swapping the values of the kth node 
+# from the beginning and the kth node from the end (the list is 1-indexed).
+# Link: https://leetcode.com/problems/swapping-nodes-in-a-linked-list/
+# My solution:
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if head == None:
+            return None
+        node_list = []
+        curr_node = head
+        while curr_node != None:
+            node_list.append(curr_node)
+            curr_node = curr_node.next
+        if k > len(node_list):
+            return head
+        node_list_len = len(node_list)
+        if node_list_len == 1:
+            return head
+        if k == 1:
+            if node_list_len > 2:
+                node_list[node_list_len - 1].next = node_list[0].next
+                node_list[node_list_len - 2].next = node_list[0]
+            else:
+                node_list[node_list_len - 1].next = node_list[0]
+            node_list[0].next = None
+            head = node_list[node_list_len - 1]
+        elif k - 1 != node_list_len - k:
+            node_list[node_list_len - k - 1].next = node_list[k - 1]
+            node_list[k - 1].next = node_list[node_list_len - k].next
+            node_list[node_list_len - k].next = node_list[k]
+            node_list[k - 2].next = node_list[node_list_len - k]
+        return head
+        
+        
+   
