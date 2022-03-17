@@ -141,3 +141,28 @@ class Solution:
             node_list[index - 1].next = node_list[index + 1]
             node_list[index].next = None
         return head
+
+    
+    
+    
+# Question: Given two strings s1 and s2, return true if s2 contains a permutation 
+# of s1, or false otherwise.
+# In other words, return true if one of s1's permutations is the substring of s2.
+# Link: https://leetcode.com/problems/permutation-in-string/
+# My solution:
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        def all_perms(elements):
+            if len(elements) <=1:
+                yield elements
+            else:
+                for perm in all_perms(elements[1:]):
+                    for i in range(len(elements)):
+                        # nb elements[0:1] works in both string and list contexts
+                        yield perm[:i] + elements[0:1] + perm[i:]
+        for permutation in all_perms(s1):
+            if permutation in s2:
+                return True
+        return False
+
+    
