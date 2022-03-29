@@ -380,5 +380,45 @@ class Solution:
         return result
             
                 
-                
+
+# Given the roots of two binary trees p and q, write a function to check if 
+# they are the same or not.
+# Two binary trees are considered the same if they are structurally identical, 
+# and the nodes have the same value.
+# Link: https://leetcode.com/problems/same-tree/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        def getLevelNodes(node_list1 , node_list2):
+            if len(node_list1) == 0 and len(node_list2) == 0:
+                return True
+            if len(node_list1) == 0 or len(node_list2) == 0:
+                return False
+            result1 = list()
+            result2 = list()
+            for node1, node2 in zip(node_list1, node_list2):
+                if node1.val != node2.val:
+                    return False
+                if type(node1.left) != type(node2.left):
+                    return False
+                if type(node1.right) != type(node2.right):
+                    return False
+                if node1.left != None:
+                    result1.append(node1.left)
+                    result2.append(node2.left)
+                if node1.right != None:
+                    result1.append(node1.right)
+                    result2.append(node2.right)
+            return getLevelNodes(result1, result2)
+        if p == None and q == None:
+            return True
+        if p == None or q == None:
+            return False
+        return getLevelNodes([p], [q])
+        
                 
