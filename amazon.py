@@ -198,3 +198,40 @@ class LRUCache:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
+
+
+
+
+
+# Given the head of a linked list, rotate the list to the right by k places.
+# Link: https://leetcode.com/problems/rotate-list/
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if head == None:
+            return None
+        if k == 0:
+            return head
+        node_list = list()
+        node = head
+        while node != None:
+            node_list.append(node)
+            node = node.next
+        if len(node_list) == 1:
+            return head
+        if k % len(node_list) == 0:
+            return head
+        rot = k % len(node_list)
+        length = len(node_list)
+        node_list[length - 1].next = head
+        node_list[length - rot - 1].next = None
+        head = node_list[length - rot]
+        return head
+        
+        
+            
+        
