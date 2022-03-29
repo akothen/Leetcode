@@ -303,3 +303,42 @@ class Solution:
         return final_result
         
             
+
+# Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+# Link: https://leetcode.com/problems/symmetric-tree/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        def getLevelNodes(node_list):
+            if len(node_list) == 0:
+                return True
+            result_val = list()
+            result = list()
+            for node in node_list:
+                if node.left != None:
+                    result.append(node.left)
+                    result_val.append(node.left.val)
+                else:
+                    result_val.append(None)
+                if node.right != None:
+                    result.append(node.right)
+                    result_val.append(node.right.val)
+                else:
+                    result_val.append(None)
+            if len(result_val) % 2 != 0:
+                return False
+            length = len(result_val)
+            mid = int(length / 2)
+            for index in range(mid):
+                if result_val[index] != result_val[length - 1 -index]:
+                    return False
+            return getLevelNodes(result)
+        if root == None:
+            return True
+        return getLevelNodes([root])
+ 
