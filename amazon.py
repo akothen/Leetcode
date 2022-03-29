@@ -233,5 +233,42 @@ class Solution:
         return head
         
         
+         
+# There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. 
+# You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you 
+# must take course bi first if you want to take course ai.
+# For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+# Return true if you can finish all courses. Otherwise, return false.
+# Link: https://leetcode.com/problems/course-schedule/
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        course_with_no_prereq = None
+        prereq_to_courses = dict()
+        for pair in prerequisites:
+            if pair[0] == pair[1]:
+                return False
+            if pair[0] >= numCourses or pair[1] >= numCourses:
+                return False
+            if pair[1] in prereq_to_courses:
+                prereq_to_courses[pair[1]].append(pair[0])
+            else:
+                prereq_to_courses[pair[1]] = [pair[0]]
+        for course in range(numCourses):
+            worklist = [course]
+            visited = set()
+            while len(worklist) != 0:
+                try_course = worklist.pop()
+                if try_course in prereq_to_courses:
+                    if try_course in visited:
+                        continue
+                    visited.add(try_course)
+                    for val_course in prereq_to_courses[try_course]:
+                        if val_course == course:
+                            print("val_course:")
+                            print(val_course)
+                            return False
+                        worklist.append(val_course)
+        return True
             
-        
+            
+
