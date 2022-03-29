@@ -342,3 +342,43 @@ class Solution:
             return True
         return getLevelNodes([root])
  
+
+
+# Given the root of a binary tree and an integer targetSum, return all 
+# root-to-leaf paths where the sum of the node values in the path equals 
+# targetSum. Each path should be returned as a list of the node values, 
+# not node references.
+# A root-to-leaf path is a path starting from the root and ending at any leaf node. 
+# A leaf is a node with no children.
+# Link: https://leetcode.com/problems/path-sum-ii/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        def paths(node, acc_array, result):
+            acc_array.append(node.val)
+            if node.left != None:
+                paths(node.left, acc_array, result)
+            if node.right != None:
+                paths(node.right, acc_array, result)
+            if node.left == None and node.right == None:
+                sum = 0
+                for elem in acc_array:
+                    sum += elem
+                if sum == targetSum:
+                    result.append(acc_array.copy())
+            acc_array.pop()
+        if root == None:
+            return []
+        result = []
+        acc_array = []
+        paths(root, acc_array, result)
+        return result
+            
+                
+                
+                
