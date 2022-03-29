@@ -271,4 +271,35 @@ class Solution:
         return True
             
             
-
+# Given the root of a binary tree, return the level order traversal of its 
+# nodes' values. (i.e., from left to right, level by level).
+# Link: https://leetcode.com/problems/binary-tree-level-order-traversal/
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        def getLevelNodes(node_list, final_result):
+            if len(node_list) == 0:
+                return
+            result_val = list()
+            result = list()
+            for node in node_list:
+                result_val.append(node.val)
+                if node.left != None:
+                    result.append(node.left)
+                if node.right != None:
+                    result.append(node.right)
+            final_result.append(result_val)
+            getLevelNodes(result, final_result)
+            return
+        if root == None:
+            return None
+        final_result = []
+        getLevelNodes([root], final_result)
+        return final_result
+        
+            
