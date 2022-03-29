@@ -118,5 +118,48 @@ class Solution:
                 result = merge2Lists(result, array)
         return result
                     
-      
+ 
+# Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+# Implement the MinStack class:
+# MinStack() initializes the stack object.
+# void push(int val) pushes the element val onto the stack.
+# void pop() removes the element on the top of the stack.
+# int top() gets the top element of the stack.
+# int getMin() retrieves the minimum element in the stack
+# Link: https://leetcode.com/problems/min-stack/
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.min = None
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        if self.min == None:
+            self.min = val
+        elif self.min > val:
+            self.min = val
+
+    def pop(self) -> None:
+        elem = self.stack.pop()
+        if elem == self.min:
+            if len(self.stack) != 0:
+                self.min = self.stack[0]
+                for val in self.stack[1:]:
+                    if val < self.min:
+                        self.min = val
+            else:
+                self.min = None
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.min
+        
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(val)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.getMin()
       
