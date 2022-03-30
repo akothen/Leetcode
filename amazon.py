@@ -421,4 +421,46 @@ class Solution:
             return False
         return getLevelNodes([p], [q])
         
-                
+               
+
+            
+            
+# You are given a perfect binary tree where all leaves are on the same level, 
+# and every parent has two children.
+# Populate each next pointer to point to its next right node. If there is no 
+# next right node, the next pointer should be set to NULL.
+# Initially, all next pointers are set to NULL.
+# Link: https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+class Solution:
+    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        def levelTraverse(node_list):
+            if len(node_list) == 0:
+                return
+            next_node_list = list()
+            prev_node = None
+            for node in node_list:
+                if node.right == None and node.left == None:
+                    continue
+                if prev_node != None:
+                    node.right.next = prev_node
+                node.left.next = node.right
+                prev_node = node.left
+                next_node_list.append(node.right)
+                next_node_list.append(node.left)
+            levelTraverse(next_node_list)
+            return
+        if root == None:
+            return None
+        levelTraverse([root])
+        return root
+                    
+            
