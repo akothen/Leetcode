@@ -464,3 +464,62 @@ class Solution:
         return root
                     
             
+
+# Implement the myAtoi(string s) function, which converts a string to a 
+# 32-bit signed integer (similar to C/C++'s atoi function).
+# Link: https://leetcode.com/problems/string-to-integer-atoi/
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        s = s.strip()
+        if s == "":
+            return 0
+        positive = None
+        if s[0] == "+" or s[0] == "-":
+            positive = True if s[0] == "+" else False
+            s = s[1:]
+        # Forward iterate to hit a valid number first
+        zero_ascii = ord("0")
+        for index, c in enumerate(s):
+            ascii_val = ord(c)
+            val = ascii_val - zero_ascii
+            if val > 9 or val < 0:
+                return 0
+            break
+        result_array = []
+        for c in s:
+            ascii_val = ord(c)
+            print("ascii_val:")
+            print(ascii_val)
+            print("zero_ascii:")
+            print(zero_ascii)
+            val = ascii_val - zero_ascii
+            print("val")
+            print(val)
+            if val > 9 or val < 0:
+                break
+            print("val:")
+            print(val)
+            result_array.append(val)
+        result_array.reverse()
+        scale = 1
+        result = 0
+        for val in result_array:
+            result += scale * val
+            scale *= 10
+        if positive == False:
+            if result > 2**31 - 1:
+                result = 2**31
+            return -result
+        if result > 2**31 - 1:
+            result = 2**31 - 1
+        return result
+        
+            
+            
+            
+            
+            
+                
+                
+            
+          
